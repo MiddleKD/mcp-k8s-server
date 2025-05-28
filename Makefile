@@ -19,4 +19,7 @@ context7-run:
 context7-stop:
 	docker stop mcp-context7
 
-.PHONY: mcp-bridge-up mcp-bridge-down dify-up dify-down context7-build context7-run context7-stop
+test-connect:
+	npx @wong2/mcp-cli --sse http://localhost:8000/mcp-server/sse
+
+.PHONY: mcp-bridge-up mcp-bridge-down dify-up dify-down context7-build context7-run context7-stop test-connect
