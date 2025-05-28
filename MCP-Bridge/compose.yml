@@ -12,6 +12,8 @@ services:
     volumes:
       - ./config.json:/mcp_bridge/config.json
     restart: unless-stopped
+    networks:
+      - mcp-network
 
   jaeger:
     image: jaegertracing/jaeger:latest
@@ -22,3 +24,11 @@ services:
       # - "5778:5778"     # Config server
       # - "9411:9411"     # Zipkin compatible
     restart: unless-stopped
+    networks:
+      - mcp-network
+
+networks:
+  mcp-network:
+    name: mcp-network
+    driver: bridge
+    attachable: true
