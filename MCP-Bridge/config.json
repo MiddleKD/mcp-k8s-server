@@ -2,7 +2,7 @@
   "mcp_servers": {
     "Context7": {
         "command": "npx",
-        "args": ["y", "mcp-remote", "http://mcp-context7:3000/sse", "--allow-http"]
+        "args": ["mcp-remote", "http://mcp-context7/sse", "--allow-http"]
       }
   }
 }
