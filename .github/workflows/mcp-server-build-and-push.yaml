@@ -41,7 +41,7 @@ jobs:
         context: ${{ matrix.service.context }}
         file: ${{ matrix.service.dockerfile }}
         push: true
-        tags: ${{ github.sha }}
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/${{ matrix.service.name }}:${{ github.sha }}
 
     - name: Push to infra-cd
       run: |
