@@ -35,29 +35,21 @@ jobs:
         username: ${{ secrets.DOCKERHUB_USERNAME }}
         password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-    - name: Extract metadata tags for Docker
-      id: meta
-      uses: docker/metadata-action@v4
-      with:
-        images: ${{ secrets.DOCKERHUB_USERNAME }}/mcp-server
-        tags: |
-          type=sha,format=long
-
     - name: Build and push Docker image
       uses: docker/build-push-action@v4
       with:
         context: ${{ matrix.service.context }}
         dockerfile: ${{ matrix.service.dockerfile }}
         push: true
-        tags: ${{ steps.meta.outputs.tags }}
+        tags: ${{ github.sha }}
 
     - name: Push to infra-cd
       run: |
-        git config --global user.name 'GitHub Actions'
-        git config --global user.email 'actions@github.com'
+        git config --global user.name 'middlek'
+        git config --global user.email 'kmiddlecenter@gmail.com'
         git clone https://${{ secrets.GH_TOKEN }}@github.com/MiddleKD/infra-cd.git
         cd infra-cd/mcp-server/kustomize/overlays/dev
-        yq eval '.images[].newTag = "${{ steps.meta.outputs.tags }}"' -i kustomization.yaml
+        yq eval '.images[].newTag = "${{ github.sha }}"' -i kustomization.yaml
         git add .
         git commit -m "Update from GitHub Actions" || echo "No changes to commit"
         git push
