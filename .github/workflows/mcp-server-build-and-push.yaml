@@ -19,8 +19,8 @@ jobs:
             context: ./MCP-Bridge
             dockerfile: ./MCP-Bridge/Dockerfile
           - name: mcp-context7
-            context: ./mcp-dockerfile
-            dockerfile: ./mcp-dockerfile/context7.dockerfile
+            context: ./mcp-dockerfiles
+            dockerfile: ./mcp-dockerfiles/context7.dockerfile
 
     steps:
     - name: Checkout repository
