@@ -16,11 +16,11 @@ jobs:
       matrix:
         service:
           - name: mcp-bridge
-            context: MCP-Bridge
-            dockerfile: MCP-Bridge/Dockerfile
+            context: ./MCP-Bridge
+            dockerfile: ./MCP-Bridge/Dockerfile
           - name: mcp-context7
-            context: mcp-dockerfile
-            dockerfile: mcp-dockerfile/context7.dockerfile
+            context: ./mcp-dockerfile
+            dockerfile: ./mcp-dockerfile/context7.dockerfile
 
     steps:
     - name: Checkout repository
@@ -39,7 +39,7 @@ jobs:
       uses: docker/build-push-action@v4
       with:
         context: ${{ matrix.service.context }}
-        dockerfile: ${{ matrix.service.dockerfile }}
+        file: ${{ matrix.service.dockerfile }}
         push: true
         tags: ${{ github.sha }}
 
